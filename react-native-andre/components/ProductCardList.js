@@ -8,17 +8,30 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
+      width: '100%'
+    },
+    flatList: {
+        width: '100%'
     }
 });
 
-const Component = (props) => {
+const _keyExtractor = (item, index) => item.id;
+
+const ProductCardList = (props) => {
     return (
         <View style={styles.container}>
-            <FlatList>
-                {this.props.products.map(prd =>
-                    <ProductCard product={prd}></ProductCard>
-                )}
-            </FlatList>
+            <FlatList data={props.products}
+            style={styles.flatList}
+            numColumns={2}
+            renderItem={({ item }) => (
+                <ProductCard
+                  product={item}
+                />
+            )}
+            keyExtractor={_keyExtractor}
+            />
         </View>
     );
 };
+
+export default ProductCardList

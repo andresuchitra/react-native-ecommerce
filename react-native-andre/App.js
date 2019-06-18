@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import RandomCat from './screens/PromotedProducts'
 import { createStackNavigator, createAppContainer, createMaterialTopTabNavigator } from "react-navigation";
 import PromotedProductNavigation from './navigations/PromotedProducts'
-import CategoriesNavigation from './navigations/PromotedProducts'
+import CategoriesNavigation from './navigations/Categories'
 
 const AppNavigator = createMaterialTopTabNavigator({
   Home: PromotedProductNavigation,

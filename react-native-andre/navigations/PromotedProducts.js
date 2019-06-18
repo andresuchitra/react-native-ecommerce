@@ -1,4 +1,4 @@
-import {createStackNavigation, createStackNavigator} from 'react-navigation'
+import { createStackNavigator} from 'react-navigation'
 import PromotedProducts from '../screens/PromotedProducts'
 import ProductDetail from '../components/ProductDetail'
 

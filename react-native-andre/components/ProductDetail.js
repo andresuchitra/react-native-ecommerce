@@ -10,10 +10,16 @@ const styles = StyleSheet.create({
     }
 });
 
-const Component = (props) => {
+const ProductDetail = (props) => {
     return (
         <View style={styles.container}>
             <Text>{this.props.product.name}</Text>
         </View>
     );
 };
+
+ProductDetail.navigationOptions = {
+    title: 'Product Detail'
+}
+
+export default ProductDetail
