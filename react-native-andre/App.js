@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import RandomCat from './screens/PromotedProducts'
-import { createStackNavigator, createAppContainer, createMaterialTopTabNavigator } from "react-navigation";
+import { createAppContainer, createMaterialTopTabNavigator } from "react-navigation";
 import PromotedProductNavigation from './navigations/PromotedProducts'
 import CategoriesNavigation from './navigations/Categories'
 
@@ -10,10 +9,17 @@ const AppNavigator = createMaterialTopTabNavigator({
   Categories: CategoriesNavigation,
 });
 
-export default function App() {
-  const Route = createAppContainer(AppNavigator)
-  return (<Route />)
+const Route = createAppContainer(AppNavigator)
+
+class App extends Component {
+
+  render() {
+    return (
+      <Route />
+    );
+  }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -26,3 +32,5 @@ const styles = StyleSheet.create({
     fontFamily: 'Cochin',
   },
 });
+
+export default App

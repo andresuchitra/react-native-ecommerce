@@ -6,7 +6,8 @@ export default createStackNavigator({
     Categories: {
         screen: Categories,
     },
-    ProductsList: {
+    Products: {
         screen: Products,
+        path: `:category`,
     }
 })

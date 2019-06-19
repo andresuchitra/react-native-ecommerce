@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, FlatList, Image } from 'react-native'
+import { View, StyleSheet, FlatList, Image, Text, TouchableHighlight } from 'react-native'
 import api from '../api'
 import {token} from '../globals'
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingLeft: 5,
-      paddingRight: 5,
+      paddingLeft: 10,
+      paddingRight: 10,
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
@@ -17,16 +17,40 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
         borderBottomWidth: 1,
-        borderBottomColor: 'gray',
+        borderBottomColor: 'rgba(100,100,100,0.4)',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 20,
+        height: 60,
+        minWidth: '100%'
     },
     loading: {
         height: 100,
         width: 100,
-    }
+    },
+    button: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 60,
+        width: '100%',
+    },
+    itemText: {
+        fontSize: 15,
+        fontWeight: '700',
+        color: '#0d3b84',
+        textTransform: 'uppercase',
+    },
 });
+
+renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          backgroundColor: "#CED0CE",
+        }}
+      />
+    );
+  };
 
 const Categories = (props) => {
     const [categories, setCategories] = useState([])
@@ -37,16 +61,16 @@ const Categories = (props) => {
         setLoading(true)
         api.get(`/categories?access_token=${token}`)
         .then(({ data }) => {
-            console.log(data.data);
             setCategories(data.data);
         })
         .catch(err => {
-            console.log(err);
+            console.log('categories error...',token,err);
         })
         .finally(() => {
             setLoading(false);
         })
-    }, [categories.length])
+
+    }, [token])
 
     if(loading) {
         return (
@@ -56,17 +80,23 @@ const Categories = (props) => {
         );
     }
     else {
-        console.log(props.categories);
         return (
             <View style={styles.container}>
                 <FlatList
-                    data={props.categories}
-                    keyExtractor={(item, index) => item.id}
-                    renderItem={({item}) => {
-                        <View style={styles.catContainer}>
-                            <Text>{item.name}</Text>
-                        </View>
-                    }}
+                    style={{ width: '100%' }}
+                    ItemSeparatorComponent={renderSeparator}
+                    data={categories}
+                    keyExtractor={(item) => item.name}
+                    renderItem={({item, index, separators}) => (
+                        <TouchableHighlight
+                            onShowUnderlay={separators.highlight}
+                            onHideUnderlay={separators.unhighlight}
+                            onPress={() => props.navigation.navigate(`Products`, {category_name: item.name, category_id: item.id})}
+                            style={styles.button}
+                        >
+                            <Text style={styles.itemText}>{item.name}</Text>
+                        </TouchableHighlight>
+                    )}
                 />
             </View>
         );
